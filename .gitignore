@@ -38,3 +38,6 @@ node_modules
 
 ### PhPStorm ###
 .idea/
+
+### Client Env Keys ###
+client/env/config.js

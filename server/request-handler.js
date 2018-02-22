@@ -12,7 +12,9 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
-var requestHandler = function(request, response) {
+// ....... changed var to module.exports ...... MF
+
+module.exports = function(request, response) {
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
