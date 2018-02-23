@@ -11,6 +11,14 @@ var sendResponse = function ( response, data, statusCode ) {
   response.end(JSON.stringify(data));
 };
 
+var messages = [
+  {
+    text: "Hello World",
+    username: "Fred"
+  }
+
+];
+
 module.exports = function(request, response) {
 
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
@@ -19,12 +27,14 @@ module.exports = function(request, response) {
     if ( request.method === 'GET' ) {
       // response.writeHead(statusCode, headers);
       // response.end(JSON.stringify('Hello, World!'));
-      sendResponse(response, 'Hello, World!');
+      sendResponse(response, {results: messages});
      
    } else if ( request.method === 'POST' ) {
      // response.writeHead(statusCode, headers);
      // response.end(JSON.stringify('Hello, World!'));
-     sendResponse(response, 'Hello, World!');
+     sendResponse(response, "Hello World");
+   } else if ( request.method === 'OPTIONS' ) {
+     sendResponse(response, null);
    }
 
 

@@ -22,8 +22,8 @@
 
 app = {
 
-  server: 'http://parse.rpt.hackreactor.com/chatterbox/classes/messages',
-  //server: 'http://127.0.0.1:3000/chatterbox/classes/messages',
+  //server: 'http://parse.rpt.hackreactor.com/chatterbox/classes/messages',
+  server: 'http://127.0.0.1:3000/chatterbox/classes/messages',
 
   init: function() {
     // Get username
