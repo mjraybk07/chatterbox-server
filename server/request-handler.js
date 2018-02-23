@@ -11,10 +11,24 @@ var sendResponse = function ( response, data, statusCode ) {
   response.end(JSON.stringify(data));
 };
 
+var collectData = function(request, callback) {
+  var data = '';
+  
+  request.on('data', function(chunk) {
+    data += chunk;
+  });
+  request.on ('end', function() {
+    callback( JSON.parse(data) );
+  });
+};
+
+var objectId = 1;
+
 var messages = [
   {
     text: "Hello World",
-    username: "Bob"
+    username: "Bob",
+    objectId: objectId
   }
 ];
 
@@ -23,7 +37,11 @@ var actions = {
     sendResponse(response, {results: messages}); 
   },
   'POST': function(request, response) {
-    sendResponse(response, "Hello World");
+    collectData(request, function (message) {
+    messages.push(message);
+    message.objectId = ++objectId;
+    sendResponse(response, {objectId: 1});
+    });
   },
   'OPTIONS': function(request, response) {
     sendResponse(response, null);
@@ -41,7 +59,7 @@ module.exports = function(request, response) {
   if ( action ) {
     action(request, response)
   } else {
-    // TODO: ERROR handling 
+    sendReponse(response, "Not Found", 404);
   }
   
   // if ( action === 'GET' ) {
