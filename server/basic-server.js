@@ -2,7 +2,7 @@
 var http = require('http');
 var handleRequest = require('./request-handler');
 var urlParser = require ('url');
-
+var utils = require ('./utils');
 
 // Every server needs to listen on a port with a unique number. The
 // standard port for HTTP servers is port 80, but that port is
@@ -33,7 +33,7 @@ var server = http.createServer(function(request, response) {
   if ( parts.pathname === '/chatterbox/classes')  {
     handleRequest(request, response);
   } else {
-    // TODO: 404
+    utils.sendResponse(response, "Not Found", 404)
   }
   
 });
