@@ -14,30 +14,45 @@ var sendResponse = function ( response, data, statusCode ) {
 var messages = [
   {
     text: "Hello World",
-    username: "Fred"
+    username: "Bob"
   }
-
 ];
+
+var actions = {
+  'GET': function(request, response) {
+    sendResponse(response, {results: messages}); 
+  },
+  'POST': function(request, response) {
+    sendResponse(response, "Hello World");
+  },
+  'OPTIONS': function(request, response) {
+    sendResponse(response, null);
+  },  
+  
+};
+
 
 module.exports = function(request, response) {
 
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
-
   
-    if ( request.method === 'GET' ) {
-      // response.writeHead(statusCode, headers);
-      // response.end(JSON.stringify('Hello, World!'));
-      sendResponse(response, {results: messages});
-     
-   } else if ( request.method === 'POST' ) {
-     // response.writeHead(statusCode, headers);
-     // response.end(JSON.stringify('Hello, World!'));
-     sendResponse(response, "Hello World");
-   } else if ( request.method === 'OPTIONS' ) {
-     sendResponse(response, null);
-   }
-
-
+  var action = actions[request.method];
+  
+  if ( action ) {
+    action(request, response)
+  } else {
+    // TODO: ERROR handling 
+  }
+  
+  // if ( action === 'GET' ) {
+  //   actions.GET(request, response);
+       
+  // } else if ( action === 'POST' ) {
+  //   actions.POST(request, response);
+    
+  // } else if ( action === 'OPTIONS' ) {
+  //   actions.OPTIONS(request, response);
+  //}
 };
 
 
